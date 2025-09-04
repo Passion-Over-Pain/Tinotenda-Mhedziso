@@ -3,13 +3,6 @@
 
 Welcome to the documentation for my portfolio website, which serves as a digital representation of my skills, projects, and professional presence. The portfolio reflects my passion for software/web development, design aesthetics, and interactive technology.
 
->[!Tip]
->Listen to the AI generated podcast now. **Please note** that this is an experimental feature. Also my name is pronounced: Tea-no-ten-da.
-
-
-https://github.com/user-attachments/assets/1cd2df61-130d-413f-950f-fa7363089fed
-
-
 ---
 
 
@@ -159,4 +152,5 @@ This portfolio is a testament to my continuous learning and growth in web develo
   <a href="https://www.linkedin.com/in/tinotenda-mhedziso/">LinkedIn</a> |
   <a href="https://tinotenda-mhedziso.pages.dev/">Website</a>
 </p>
+
 
