@@ -141,6 +141,7 @@ Planned updates for the portfolio:
    * Wanicon <br>
    * Sympnoiaicon <br>
    * itim2101 <br>
+   * StorySet<br>
    
 </details>
 
@@ -158,3 +159,4 @@ This portfolio is a testament to my continuous learning and growth in web develo
   <a href="https://www.linkedin.com/in/tinotenda-mhedziso/">LinkedIn</a> |
   <a href="https://tinotenda-mhedziso.pages.dev/">Website</a>
 </p>
+
