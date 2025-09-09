@@ -43,7 +43,7 @@ body {
 html {
   width: 100vw;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 .flexBox {

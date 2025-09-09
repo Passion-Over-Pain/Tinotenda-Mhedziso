@@ -34,6 +34,7 @@ let cardImage = document.getElementById('cardImage');
 let cardDescription = document.getElementById('cardDescription');
 
 function animate() {
+  console.log('Animate function called. Current anime state:', anime);
   updateQuestStatus('AnimationsTask', true);
   if (anime) {
     animeText.textContent = 'Enable Animations';
@@ -44,6 +45,7 @@ function animate() {
       titles[t].classList.remove('bounce');
     }
     anime = false;
+    console.log('Scrolling to #FooterSection');
     window.location.assign(`#FooterSection`);
     setTimeout(backHome, 2000);
   } else {
@@ -56,13 +58,15 @@ function animate() {
     }
     anime = true;
 
+    console.log('Scrolling to #FooterSection');
     window.location.assign(`#FooterSection`);
     setTimeout(backHome, 2000);
   }
 }
 function backHome() {
+  console.log('backHome called, scrolling to top');
   window.location.assign(`#`);
-  console.log("WEEEE"); // Debugging 
+  console.log('WEEEE'); // Debugging
 }
 
 function checkNotifications() {
@@ -109,8 +113,10 @@ window.addEventListener('load', function (load) {
   loadQuests();
   checkQuests();
   this.setTimeout(function () {
+    let scrollPos = window.scrollY;
     loader.style.display = 'none';
     unlockScreen();
+    window.scrollTo(0, scrollPos);
     let greet = localStorage.getItem('greeted');
     if (!greet) {
       showNotification(`Hey ! I'm Passion...`, 1);
@@ -458,7 +464,6 @@ function showPopUp(message) {
         cardTitle.textContent = 'Unacceptable behaviour';
         cardDescription.textContent = `Wait… did you just decline the Terms of Service? 🤨 You do realize that without agreement, you can’t access any of Tino’s amazing creations, right? Well, if that’s your final decision… I’m afraid I have no choice but to escort you out. 👋 - Oh you're still here ? Welp I was just joking hehe.`;
         cardImage.src = 'Images/Icons/error.svg';
-       
       }
       break;
     case 10:
@@ -689,7 +694,6 @@ function supportMe() {
 function declineToS() {
   showNotification('Did you just decline ...', 9);
 }
-
 
 function openWebchat() {
   if (!sentFirst) {
@@ -1452,4 +1456,18 @@ gsap.from('#passionCard', {
   transformOrigin: 'top center',
   duration: 0.6,
   ease: 'power2.out'
+});
+
+// Add scroll logging for debugging
+window.addEventListener('scroll', () => {
+  console.log('Scroll position:', window.scrollY);
+});
+
+// Preserve scroll position on resize (for dev tools mobile switch)
+let scrollPos = 0;
+window.addEventListener('resize', () => {
+  scrollPos = window.scrollY;
+  setTimeout(() => {
+    window.scrollTo(0, scrollPos);
+  }, 100);
 });
