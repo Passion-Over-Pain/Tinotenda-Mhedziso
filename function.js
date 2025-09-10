@@ -1460,11 +1460,11 @@ gsap.from('#passionCard', {
   ease: 'power2.out'
 });
 
-// Handle resize to refresh ScrollTrigger without losing scroll position
-window.addEventListener('resize', () => {
-  const currentScroll = window.scrollY;
-  ScrollTrigger.refresh();
-  setTimeout(() => {
-    window.scrollTo(0, currentScroll);
-  }, 100);
-});
+// // Handle resize to refresh ScrollTrigger without losing scroll position
+// window.addEventListener('resize', () => {
+//   const currentScroll = window.scrollY;
+//   ScrollTrigger.refresh();
+//   setTimeout(() => {
+//     window.scrollTo(0, currentScroll);
+//   }, 100);
+// });
