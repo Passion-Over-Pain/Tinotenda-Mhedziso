@@ -1460,11 +1460,6 @@ gsap.from('#passionCard', {
   ease: 'power2.out'
 });
 
-// Add scroll logging for debugging
-window.addEventListener('scroll', () => {
-  console.log('Scroll position:', window.scrollY);
-});
-
 // Handle resize to refresh ScrollTrigger without losing scroll position
 window.addEventListener('resize', () => {
   const currentScroll = window.scrollY;
