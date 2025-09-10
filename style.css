@@ -1281,6 +1281,7 @@ h1 span {
   align-items: center;
   transition: box-shadow 0.3s;
   gap: 20px;
+  will-change: transform, opacity;
 }
 
 .project-item:hover {
