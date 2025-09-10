@@ -113,10 +113,8 @@ window.addEventListener('load', function (load) {
   loadQuests();
   checkQuests();
   this.setTimeout(function () {
-    let scrollPos = window.scrollY;
     loader.style.display = 'none';
     unlockScreen();
-    window.scrollTo(0, scrollPos);
     let greet = localStorage.getItem('greeted');
     if (!greet) {
       showNotification(`Hey ! I'm Passion...`, 1);
@@ -762,13 +760,13 @@ gsap.utils.toArray(programmingLanguages).forEach((item, index) => {
     y: 50,
     duration: 1,
     delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: item,
-      start: 'top 95%',
-      toggleActions: 'play none none none',
-      once: true
-    }
+    ease: 'power2.out'
+    // scrollTrigger: {
+    //   trigger: item,
+    //   start: 'top 95%',
+    //   toggleActions: 'play none none none',
+    //   once: true
+    // }
   });
 });
 
@@ -780,13 +778,13 @@ gsap.utils.toArray(projectItems).forEach((item) => {
     y: 50,
     duration: 1,
     stagger: 0.5,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: item,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-      once: true
-    }
+    ease: 'power2.out'
+    // scrollTrigger: {
+    //   trigger: item,
+    //   start: 'top 80%',
+    //   toggleActions: 'play none none none',
+    //   once: true
+    // }
   });
 });
 
@@ -798,13 +796,13 @@ gsap.utils.toArray(postLikeCards).forEach((post, index) => {
     y: 50,
     duration: 1,
     delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: post,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-      once: true
-    }
+    ease: 'power2.out'
+    // scrollTrigger: {
+    //   trigger: post,
+    //   start: 'top 80%',
+    //   toggleActions: 'play none none none',
+    //   once: true
+    // }
   });
 });
 
@@ -816,13 +814,13 @@ gsap.utils.toArray(socialIcons).forEach((icon, index) => {
     x: -50,
     duration: 1,
     delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: icon,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-      once: true
-    }
+    ease: 'power2.out'
+    // scrollTrigger: {
+    //   trigger: icon,
+    //   start: 'top 80%',
+    //   toggleActions: 'play none none none',
+    //   once: true
+    // }
   });
 });
 
@@ -1461,13 +1459,4 @@ gsap.from('#passionCard', {
 // Add scroll logging for debugging
 window.addEventListener('scroll', () => {
   console.log('Scroll position:', window.scrollY);
-});
-
-// Preserve scroll position on resize (for dev tools mobile switch)
-let scrollPos = 0;
-window.addEventListener('resize', () => {
-  scrollPos = window.scrollY;
-  setTimeout(() => {
-    window.scrollTo(0, scrollPos);
-  }, 100);
 });
