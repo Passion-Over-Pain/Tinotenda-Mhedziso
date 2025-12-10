@@ -62,6 +62,7 @@ html {
   text-align: start;
 }
 #preloader {
+  display: flex;
   background-color: #000;
   background-image: url(Images/cat.gif);
   background-repeat: no-repeat;
@@ -74,7 +75,6 @@ html {
   color: var(--brightGreen);
   text-align: center;
   align-items: center;
-  display: grid;
   justify-content: center;
 }
 .glitch {
@@ -932,7 +932,24 @@ h1 span {
   color: var(--brightGreen);
   gap: 2px;
 }
+.Programming .language,
+.project-item,
+.social-post,
+.skill-card,
+.social-Icon {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
 
+.social-Icon {
+  transform: translateX(-50px); /* Different direction for icons */
+}
+
+.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) translateX(0) !important;
+}
 .View ul {
   list-style: none;
 }
@@ -960,7 +977,6 @@ h1 span {
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
 }
 
 .skill-card:hover {
@@ -1279,7 +1295,7 @@ h1 span {
   padding: 20px;
   background: var(--black);
   align-items: center;
-  transition: box-shadow 0.3s;
+  /* transition: box-shadow 0.3s; */
   gap: 20px;
   will-change: transform, opacity;
 }

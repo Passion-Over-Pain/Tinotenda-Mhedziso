@@ -3,15 +3,27 @@
 let shown = false;
 let viewpoints = document.getElementsByClassName('Viewpoint');
 let views = document.getElementsByClassName('View');
-let questData = JSON.parse(localStorage.getItem('questsStatus')) || {
+const storage = {
+  data: {},
+  getItem(key) {
+    return this.data[key] || null;
+  },
+  setItem(key, value) {
+    this.data[key] = value;
+  },
+  removeItem(key) {
+    delete this.data[key];
+  }
+};
+let questData = JSON.parse(storage.getItem('questsStatus')) || {
   completedQuests: [],
   currentLevel: 0
 };
 function show(viewObj) {
-  for (viewpoint of viewpoints) {
+  for (let viewpoint of viewpoints) {
     viewpoint.classList.remove('Activepoint');
   }
-  for (view of views) {
+  for (let view of views) {
     view.classList.remove('Activeview');
   }
   event.currentTarget.classList.add('Activepoint');
@@ -38,10 +50,10 @@ function animate() {
   updateQuestStatus('AnimationsTask', true);
   if (anime) {
     animeText.textContent = 'Enable Animations';
-    for (s = 0; s < skillCards.length; ++s) {
+    for (let s = 0; s < skillCards.length; ++s) {
       skillCards[s].classList.remove('bounce');
     }
-    for (t = 0; t < titles.length; ++t) {
+    for (let t = 0; t < titles.length; ++t) {
       titles[t].classList.remove('bounce');
     }
     anime = false;
@@ -50,10 +62,10 @@ function animate() {
     setTimeout(backHome, 2000);
   } else {
     animeText.textContent = 'Disable Animations';
-    for (s = 0; s < skillCards.length; ++s) {
+    for (let s = 0; s < skillCards.length; ++s) {
       skillCards[s].classList.add('bounce');
     }
-    for (t = 0; t < titles.length; ++t) {
+    for (let t = 0; t < titles.length; ++t) {
       titles[t].classList.add('bounce');
     }
     anime = true;
@@ -91,9 +103,10 @@ function showNotification(text, number) {
   }
 }
 let loader = document.getElementById('preloader');
-window.addEventListener('load', function (load) {
-  // Initial Dom Loaded //
-  this.window.removeEventListener('load', load, false);
+window.addEventListener('load', function (event) {
+  window.removeEventListener('load', event.currentTarget, false);
+
+  // --- 1. Process URL Hash (from Original Block 1) ---
   switch (window.location.hash) {
     case '#tos':
       showToS();
@@ -108,13 +121,25 @@ window.addEventListener('load', function (load) {
       break;
     case '#ban':
       showNotification(`Hope you learnt your lesson...`, 10);
+      break;
   }
   initializeNavigation();
   loadQuests();
   checkQuests();
+  if (window.p5 && window.p5.prototype && window.p5.prototype.loadSound) {
+    song = p5.prototype.loadSound(
+      `Audio/Music/Shogun's Shadow Trap.mp3`,
+      () => {
+        loadSongs();
+      }
+    );
+  } else {
+    console.error('p5.sound is not available.');
+  }
   this.setTimeout(function () {
     loader.style.display = 'none';
     unlockScreen();
+
     let greet = localStorage.getItem('greeted');
     if (!greet) {
       showNotification(`Hey ! I'm Passion...`, 1);
@@ -122,6 +147,7 @@ window.addEventListener('load', function (load) {
         .getElementById('cardClose')
         .addEventListener('click', greetedUser, { once: true });
     }
+
     let currentname = localStorage.getItem('username');
     if (currentname) {
       document.getElementById('user-name').textContent = currentname;
@@ -131,6 +157,33 @@ window.addEventListener('load', function (load) {
 
     shownWelcome = true;
   }, 500);
+
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> GSAP animations <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -10% 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Add stagger delay based on index
+        setTimeout(() => {
+          entry.target.classList.add('animate-in');
+        }, index * 150);
+        observer.unobserve(entry.target); // Only animate once
+      }
+    });
+  }, observerOptions);
+
+  // Observe all elements
+  document
+    .querySelectorAll(
+      '.Programming .language, .project-item, .social-post, .skill-card, .social-Icon'
+    )
+    .forEach((el) => {
+      observer.observe(el);
+    });
 });
 
 function initializeNavigation() {
@@ -568,20 +621,20 @@ WebsiteBtn.addEventListener(
   { once: true }
 );
 
-function hidePopUp() {
-  const modalBg = document.getElementById('passionModal');
-  const passionCard = document.getElementById('passionCard');
+// function hidePopUp() {
+//   const modalBg = document.getElementById('passionModal');
+//   const passionCard = document.getElementById('passionCard');
 
-  gsap.to(passionCard, {
-    y: '-100%',
-    opacity: 0,
-    duration: 0.5,
-    ease: 'power2.in',
-    onComplete: () => {
-      modalBg.style.display = 'none';
-    }
-  });
-}
+//   gsap.to(passionCard, {
+//     y: '-100%',
+//     opacity: 0,
+//     duration: 0.5,
+//     ease: 'power2.in',
+//     onComplete: () => {
+//       modalBg.style.display = 'none';
+//     }
+//   });
+// }
 
 function hidePopUp() {
   unlockScreen();
@@ -750,88 +803,6 @@ const notyf = new Notyf({
   ]
 });
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>GSAP animations <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-let programmingLanguages = document.querySelectorAll('.Programming .language');
-
-gsap.utils.toArray(programmingLanguages).forEach((item, index) => {
-  gsap.from(item, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: item,
-      start: 'top 95%',
-      toggleActions: 'play none none none',
-      once: true,
-      invalidateOnRefresh: false
-    }
-  });
-});
-
-let projectItems = document.querySelectorAll('.project-item');
-
-gsap.utils.toArray(projectItems).forEach((item, index) => {
-  gsap.from(item, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: item,
-      start: 'top 95%',
-      toggleActions: 'play none none none',
-      once: true,
-      invalidateOnRefresh: false
-    }
-  });
-});
-
-let postLikeCards = document.querySelectorAll('.social-post,.skill-card');
-
-gsap.utils.toArray(postLikeCards).forEach((post, index) => {
-  gsap.from(post, {
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: post,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-      once: true,
-      invalidateOnRefresh: false
-    }
-  });
-});
-
-let socialIcons = document.querySelectorAll('.social-Icon');
-
-gsap.utils.toArray(socialIcons).forEach((icon, index) => {
-  gsap.from(icon, {
-    opacity: 0,
-    x: -50,
-    duration: 1,
-    delay: index * 0.3,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: icon,
-      start: 'top 80%',
-      toggleActions: 'play none none none',
-      once: true,
-      invalidateOnRefresh: false
-    }
-  });
-});
-
-// document.getElementById('tooltipToggle').addEventListener('click', function () {
-//   document.querySelector('.menu').classList.toggle('tooltips-visible');
-// });
-
 function authenticateGitHub(intent, repoName = null) {
   //Intents specify the action the user wants to undertake # Tino was here 09/04/2025
   const repoOwner = 'Passion-Over-Pain';
@@ -864,23 +835,6 @@ let particles = [];
 let amp = 0;
 let playing = false;
 let isLoading = false;
-
-// function preload() {
-//   song = loadSound(`Audio/Music/Shogun's Shadow Trap.mp3`);
-// }
-
-window.onload = function () {
-  if (window.p5 && window.p5.prototype && window.p5.prototype.loadSound) {
-    song = p5.prototype.loadSound(
-      `Audio/Music/Shogun's Shadow Trap.mp3`,
-      () => {
-        console.log('Sound loaded successfully!');
-      }
-    );
-  } else {
-    console.error('p5.sound is not available.');
-  }
-};
 
 function setup() {
   let cnv = createCanvas(windowWidth, windowHeight);
@@ -1185,9 +1139,6 @@ setInterval(updateMusicProgressBar, 1000);
 
 // // Load First Song
 // loadSongs();
-window.onload = function () {
-  loadSongs();
-};
 
 function toggleVisualizer() {
   let cnv = document.querySelector('canvas'); // Get the canvas element
@@ -1459,12 +1410,3 @@ gsap.from('#passionCard', {
   duration: 0.6,
   ease: 'power2.out'
 });
-
-// // Handle resize to refresh ScrollTrigger without losing scroll position
-// window.addEventListener('resize', () => {
-//   const currentScroll = window.scrollY;
-//   ScrollTrigger.refresh();
-//   setTimeout(() => {
-//     window.scrollTo(0, currentScroll);
-//   }, 100);
-// });
