@@ -84,6 +84,11 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"
       defer></script>
 
+    <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
+    <script
+      src="https://files.bpcontent.cloud/2024/12/06/17/20241206170531-PJF493H8.js"
+      defer></script>
+
     <title>Tinotenda Mhedziso | Portfolio</title>
   </head>
   <body>
@@ -1621,80 +1626,13 @@
           <x class="textBtn" onclick="contactMe()">Contact Me</x>
           <p>&copy; 2025 Tinotenda Mhedziso. All Rights Reserved.</p>
           <a href="#" class="back-to-top">Back to Top</a>
-          <button
+          <!-- <button
             class="webchat-toggle"
             onclick="openWebchat()"
             id="webchatToggle">
             💬
-          </button>
-          <div class="webchat">
-            <iframe
-              srcdoc='
-              <!doctype html>
-              <html lang="en">
-                <head></head>
-                <body>
-                  <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
-                  <script defer>
-                    window.botpress.on("webchat:ready", () => {
-                    
-                    });
-                    
-                    window.botpress.init({
-                      "botId": "2e1f3e65-ea48-48d4-bf96-eb204d7e61bb",
-                      "configuration": {
-                        "composerPlaceholder": "Talk to Passion",
-                        "botName": "Passion",
-                        "botAvatar": "https://files.bpcontent.cloud/2025/01/06/21/20250106210904-DJXTBL7U.webp",
-                        "botDescription": "My AI-powered personalized chatbot.",
-                        "website": {
-                          "title": "https://tinotenda-mhedziso.pages.dev/",
-                          "link": "https://tinotenda-mhedziso.pages.dev/"
-                        },
-                        "email": {
-                          "title": "tinomhedziso21@gmail.com",
-                          "link": "tinomhedziso21@gmail.com"
-                        },
-                        "color": "#056016",
-                        "variant": "soft",
-                        "themeMode": "dark",
-                        "fontFamily": "fira",
-                        "radius": 4,
-                        "showPoweredBy": false
-                      },
-                      "clientId": "9f986020-5681-4eb8-9351-55f5ff2d82f3"
-                    });
-                    window.botpress.on("webchat:closed", () => {
-                      window.parent.postMessage({ action: "closeWebchat" }, "*");
-                    });
-                  
-                    window.botpress.on("customEvent", (event) => {
-                      if(event.action =="newUser")
-                      {
-                       window.parent.postMessage({ action: "newUser", firstname: event.firstname, lastname: event.lastname}, "*");
-                      }
-                      else
-                     if(event.action =="playMusic")
-                     {
-                      window.parent.postMessage({ action: "playMusic" }, "*");
-                     }
-                    });
-                    window.addEventListener("message", (event) => {
-                      if (event.data.action === "contactMe") {
-                        window.botpress.sendEvent({
-                          "action" : "contactMe"
-                        });
-                      }
-                      else
-                      if (event.data.action === "openWebchat") {
-                        botpress.open();
-                      }
-                    });
-                    
-                  </script>
-                </body>
-              </html>'></iframe>
-          </div>
+          </button> -->
+
           <audio
             id="myMusic"
             src="Audio/Music/Shogun's Shadow Trap.mp3"></audio>
