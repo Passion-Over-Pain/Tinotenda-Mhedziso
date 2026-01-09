@@ -5,11 +5,6 @@
     "src": "Audio/Music/Shogun's Shadow Trap.mp3"
   },
   {
-    "title": "Almost Human",
-    "artist": "Anabolic Beatz",
-    "src": "Audio/Music/Almost Human.mp3"
-  },
-  {
     "title": "Gas Station",
     "artist": "The Cool Kidz feat Bun B",
     "src": "Audio/Music/Gas Station.mp3"
@@ -18,10 +13,5 @@
     "title": "Relax and take notes",
     "artist": "The Notorious B.I.G.",
     "src": "Audio/Music/Relax and take notes.mp3"
-  },
-  {
-    "title": "Gata Only",
-    "artist": "FloyyMenor",
-    "src": "Audio/Music/Gata Only.mp3"
   }
 ]

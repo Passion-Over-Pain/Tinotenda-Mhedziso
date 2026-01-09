@@ -105,7 +105,8 @@ function showNotification(text, number) {
 let loader = document.getElementById('preloader');
 window.addEventListener('load', function (event) {
   window.removeEventListener('load', event.currentTarget, false);
-
+  let year = new Date();
+  this.document.getElementById('ccYear').textContent = year.getFullYear();
   // --- 1. Process URL Hash (from Original Block 1) ---
   switch (window.location.hash) {
     case '#tos':
